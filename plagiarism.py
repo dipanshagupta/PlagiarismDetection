@@ -46,7 +46,7 @@ def calculateMetrics(dataframe):
                 list = []
                 # Find similarity ratio in every column i.e. ratio for all questions
                 for k in range(len(data[i])):
-                    ratio = levDistance(data[i][k], data[j][k])
+                    ratio = 1- levDistance(data[i][k], data[j][k])
                     list.append(ratio)
                 
                 # Find median for this list of ratios, this will give us the median score between these 2 student
@@ -61,7 +61,7 @@ def getValuesAboveThreshold(matrix, threshold):
     for i in range(len(matrix)):
         for j in range(i, len(matrix)):
             if matrix[i][j] > threshold:
-                print "Student",(i+1),"and Student",(j+1),"Score =",matrix[i][j] 
+                print "Student",(i+1),"and Student",(j+1),"Score =",matrix[i][j]
 
 # Main code
 
@@ -86,7 +86,7 @@ if type == "excel":
 else:
     # If file is csv, use read_csv to convert into dataframe
     if type == "csv":
-        df = pd.read_csv(fileLocation)
+        df = pd.read_csv(fileLocation, error_bad_lines=False)
         median_similarity = calculateMetrics(df)
 
 getValuesAboveThreshold(median_similarity, 0.7)
