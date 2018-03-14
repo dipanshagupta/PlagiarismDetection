@@ -54,7 +54,14 @@ def calculateMetrics(dataframe):
 
         median_similarity.append(medians_for_ith)
 
-print median_similarity
+    return median_similarity
+
+
+def getValuesAboveThreshold(matrix, threshold):
+    for i in range(len(matrix)):
+        for j in range(i, len(matrix)):
+            if matrix[i][j] > threshold:
+                print "Student",(i+1),"and Student",(j+1),"Score =",matrix[i][j] 
 
 # Main code
 
@@ -68,16 +75,21 @@ args = vars(parser.parse_args())
 fileLocation = args['file']
 type = args['type']
 
+# This matrix will store similarity between ith and jth student
+median_similarity = []
+
 # If file is excel, use ExcelFile facility to convert into dataframe
 if type == "excel":
     xl = pd.ExcelFile(fileLocation)
     df = xl.parse(xl.sheet_names[0])
-    calculateMetrics(df)
+    median_similarity = calculateMetrics(df)
 else:
     # If file is csv, use read_csv to convert into dataframe
     if type == "csv":
         df = pd.read_csv(fileLocation)
-        calculateMetrics(df)
+        median_similarity = calculateMetrics(df)
+
+getValuesAboveThreshold(median_similarity, 0.7)
 
 
 
