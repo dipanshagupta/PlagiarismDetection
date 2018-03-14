@@ -17,7 +17,8 @@ def cleanData(dataframe):
 
 def levDistance(str1, str2):
     if str(str1) == "noanswer" or str(str2) == "noanswer": return 0
-    else: return Levenshtein.ratio(str(str1), str(str2))
+    else:
+        return Levenshtein.ratio(str(str1), str(str2))
 
 # Function to calculate metric i.e. detec plagiarism
 def calculateMetrics(dataframe):
